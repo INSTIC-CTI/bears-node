@@ -18,18 +18,26 @@ bearRouter.post("/new", (req, res) => {
 });
 //  GET la route '/api/bears/:id
 bearRouter.get("/:id", (req, res) => {
- Bear.findById({_id: req.params.id}, (err, bear) => {
-   if(err) return console.error(err)
-   res.json(bear)
- })
+  Bear.findById({ _id: req.params.id }, (err, bear) => {
+    if (err) return console.error(err);
+    res.json(bear);
+  });
 });
 //  PUT
 bearRouter.put("/:id", (req, res) => {
-  res.send(` modification l'id de l'ours :${req.params.id} `);
+  Bear.findById({ _id: req.params.id }, (err, bear) => {
+    if (err) return console.error(err);
+    Object.assign(bear, req.body).save((err, nb) => {
+      if (err) return console.error(err);
+      res.json({ meessage: "Bear modified", nb });
+    });
+  });
 });
 // delete
 bearRouter.delete("/:id", (req, res) => {
-  res.send(` Suppression l'id de l'ours :${req.params.id} `);
+  Bear.remove({ _id: req.params.id }, (err, bear) => {
+  });
+  res.redirect('/api/bears')
 });
 
 module.exports = bearRouter;
