@@ -18,7 +18,10 @@ bearRouter.post("/new", (req, res) => {
 });
 //  GET la route '/api/bears/:id
 bearRouter.get("/:id", (req, res) => {
-  res.send(` Voir l'id de l'ours :${req.params.id} `);
+ Bear.findById({_id: req.params.id}, (err, bear) => {
+   if(err) return console.error(err)
+   res.json(bear)
+ })
 });
 //  PUT
 bearRouter.put("/:id", (req, res) => {
