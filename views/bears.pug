@@ -1,0 +1,10 @@
+extends layout
+block content
+  h2 Voir tous mes Ours 
+  each bear in bears 
+    a.card(href=`/api/bears/${bear.id}`)
+      .card-header
+        .card-title.h5
+          p= bear.name
+      .card-body
+        p= bear.type

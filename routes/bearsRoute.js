@@ -5,9 +5,13 @@ const Bear = require("../models/bear");
 bearRouter.get("/", (req, res) => {
   Bear.find({}, (err, result) => {
     if (err) return console.error(err);
-    res.json(result);
+    res.render("bears", { bears: result });
   });
 });
+bearRouter.get("/new", (req, res) => {
+  res.render("form");
+});
+
 // POST la route '/api/bears/new'
 bearRouter.post("/new", (req, res) => {
   const newBear = new Bear(req.body);
@@ -20,7 +24,7 @@ bearRouter.post("/new", (req, res) => {
 bearRouter.get("/:id", (req, res) => {
   Bear.findById({ _id: req.params.id }, (err, bear) => {
     if (err) return console.error(err);
-    res.json(bear);
+    res.render("bear", { bear: bear });
   });
 });
 //  PUT
@@ -35,9 +39,8 @@ bearRouter.put("/:id", (req, res) => {
 });
 // delete
 bearRouter.delete("/:id", (req, res) => {
-  Bear.remove({ _id: req.params.id }, (err, bear) => {
-  });
-  res.redirect('/api/bears')
+  Bear.remove({ _id: req.params.id }, (err, bear) => {});
+  res.redirect("/api/bears");
 });
 
 module.exports = bearRouter;

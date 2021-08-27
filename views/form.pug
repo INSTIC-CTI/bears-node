@@ -1,0 +1,11 @@
+extends layout
+block content
+  h2 Ajouter un ours 
+    form.form-horizontal(action="/api/bears/new" method="post")
+      .form-group 
+        .col-lg-12 
+          label.form-label(for='name') Nom
+        .col-lg-12 
+          input.form-input(type="text" name="name" ,placeholder="Nom") 
+          input.form-input(type="text" name="type" ,placeholder="type") 
+      button.btn.btn-primary.input-group-btn(type="submit") envoyer 
